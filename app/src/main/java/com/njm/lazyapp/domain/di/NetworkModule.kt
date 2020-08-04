@@ -1,6 +1,5 @@
-package com.njm.lazyapp.domain.utils
+package com.njm.lazyapp.domain.di
 
-import com.google.gson.Gson
 import com.njm.lazyapp.data.service.remote.YoutubeApiService
 import dagger.Module
 import dagger.Provides

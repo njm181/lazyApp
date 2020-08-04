@@ -1,4 +1,4 @@
-package com.njm.lazyapp.domain.utils
+package com.njm.lazyapp.domain.di
 
 import android.content.Context
 import com.njm.lazyapp.data.repositoryImp.SearchRepositoryImp

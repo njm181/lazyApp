@@ -3,21 +3,20 @@ package com.njm.lazyapp.domain.di
 import android.content.Context
 import com.njm.lazyapp.data.repositoryImp.SearchRepositoryImp
 import com.njm.lazyapp.data.service.remote.YoutubeApiService
+import com.njm.lazyapp.domain.repository.SearchRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
-class YoutubeServiceModule {
+@InstallIn(ActivityRetainedComponent::class)
+abstract class YoutubeServiceModule {
 
-    @Provides
-    @Singleton
-    fun serarchRepositoryImpProvider(@Named("application.context") context: Context, youtubeApiService: YoutubeApiService): SearchRepositoryImp{
-        return SearchRepositoryImp(context, youtubeApiService)
-
-    }
+    @Binds
+    abstract fun bindSearchImp(searchRepositoryImp: SearchRepositoryImp): SearchRepository
 }

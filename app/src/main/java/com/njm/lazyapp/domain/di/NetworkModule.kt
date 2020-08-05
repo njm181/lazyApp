@@ -1,14 +1,15 @@
 package com.njm.lazyapp.domain.di
 
 import com.njm.lazyapp.data.service.remote.YoutubeApiService
+import com.njm.lazyapp.domain.utils.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -36,11 +37,17 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun retrofitProvider(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory, rxJavaCallAdapterFactory: RxJavaCallAdapterFactory):Retrofit{
+    fun rxJavaCallAdapterFactoryProvider(): RxJava3CallAdapterFactory {
+        return RxJava3CallAdapterFactory.create()
+    }
+
+    @Provides
+    @Singleton
+    fun retrofitProvider(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory, rxJava3CallAdapterFactory: RxJava3CallAdapterFactory):Retrofit{
         return Retrofit.Builder()
-            .baseUrl("url constante")
+            .baseUrl(BASE_URL)
             .addConverterFactory(gsonConverterFactory)
-            .addCallAdapterFactory(rxJavaCallAdapterFactory)
+            .addCallAdapterFactory(rxJava3CallAdapterFactory)
             .client(okHttpClient)
             .build()
     }
